@@ -25,8 +25,11 @@ const questionObj =
 // fetching the options element from the HTML document
     const scoreElement = document.getElementById('score');
 
+// calling the function and storing the shuffled array in a constant. 
+    const shuffledoptions = shuffledOptions(options);
+
 //Iterating through each option
-    options.forEach((opt) => {
+    shuffledoptions.forEach((opt) => {
 
 //creating button for each option and assigning the text present in the options array
       const optionButton  = document.createElement('button');
@@ -49,3 +52,13 @@ const questionObj =
       })
 
     })
+
+//function to shuffle options
+function shuffledOptions(options){
+  for(let i=options.length-1; i>=0 ; i--){
+    const j=Math.floor(Math.random() * options.length);
+    [options[i], options[j]] = [options[j], options[i]];
+  }
+
+  return options;
+}
