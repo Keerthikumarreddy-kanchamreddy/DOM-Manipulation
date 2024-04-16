@@ -52,6 +52,7 @@ const quesJSON = [
 
     let score =0; 
     let currentQuestion =0; //to keep track of questions
+    let totalScore = quesJSON.length; //total score depending up on the length of JSON
 
 // fetching the question element from the HTML document
     const questionElement  = document.getElementById('question');
@@ -61,6 +62,15 @@ const quesJSON = [
 
 // fetching the options element from the HTML document
     const scoreElement = document.getElementById('score');
+
+// fetching the button element from the HTML document
+    const nextElement = document.getElementById('next');
+
+// adding an event listener to the next button 
+    nextElement.addEventListener("click", () => {
+      nextQuestion();
+      scoreElement.textContent = `Score : ${score} / ${totalScore}`;
+    })
 
     function showQuestion(){
 
@@ -91,7 +101,7 @@ const quesJSON = [
             }
     
     //displaying the score after user picks a choice 
-            scoreElement.textContent = `Score : ${score}`;
+            scoreElement.textContent = `Score : ${score} / ${totalScore}`;
             nextQuestion();  //calling the function to display next question
           });
     
@@ -105,6 +115,7 @@ function nextQuestion(){
   optionsElement.textContent='';  //setting the text content of options for next question as empty
   if(currentQuestion >= quesJSON.length){  //condition to check the last question in the JSON
     questionElement.textContent = 'Quiz completed';
+    nextElement.remove(); //removing the next button after quiz completion
   }else{
     showQuestion();  //displaying the next question 
   }
