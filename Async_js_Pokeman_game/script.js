@@ -1,14 +1,22 @@
 let p1_name = "john";
 let p2_name = "Alice";
 
-function getCard(url){
-     return fetch(url)
-        .then((response)=> response.json())
-        .then((response)=>{
-                let x =Math.floor(((Math.random())*20));
-                return fetch(response.results[x].url)
-        })
-        .then((response)=> response.json())
+async function getCard(url){
+        try{
+                const response = await fetch(url);
+                if(!response.ok){
+                        throw new Error("Not able to fetch data");
+                }
+                const response_1 = await response.json();
+                let x = Math.floor(((Math.random()) * 20));
+                const response_2 = await fetch(response_1.results[x].url);
+                if(!response_2.ok){
+                        throw new Error("Not able to fetch image for a the provided card");
+                }
+                return await response_2.json();
+        }catch(err){
+                console.log(err);
+        }
 }
 
 function getPokemon(){
