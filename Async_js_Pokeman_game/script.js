@@ -1,27 +1,27 @@
 let p1_name = "john";
 let p2_name = "Alice";
-function getPokemon(){
-        fetch("https://pokeapi.co/api/v2/pokemon/")
+
+function getCard(url){
+     return fetch(url)
         .then((response)=> response.json())
         .then((response)=>{
                 let x =Math.floor(((Math.random())*20));
                 return fetch(response.results[x].url)
         })
         .then((response)=> response.json())
+}
+
+function getPokemon(){
+        getCard("https://pokeapi.co/api/v2/pokemon/")
         .then((response)=> {
                 displayPlayer1(response)
-                return fetch("https://pokeapi.co/api/v2/pokemon/")
+                return getCard("https://pokeapi.co/api/v2/pokemon/")
         })
-        .then((response)=> response.json())
-        .then((response)=>{
-                let x =Math.floor(((Math.random())*20));
-                return fetch(response.results[x].url)
-        })
-        .then((response)=> response.json())
         .then((response)=> {
                 displayPlayer2(response)
         })
 }
+
 function displayPlayer1(response){
         document.getElementById('p1_name').innerHTML = p1_name;
         document.getElementById('p1_score').textContent = `Score: ${score1}`;
